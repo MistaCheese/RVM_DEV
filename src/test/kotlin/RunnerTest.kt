@@ -3,20 +3,31 @@ import Auth.Auth
 import CVD.CVD
 import CVD.check.Driver
 import Registration.NormalReg
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
+import org.junit.runners.MethodSorters
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
 import java.util.concurrent.TimeUnit
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class RunnerTest {
     private lateinit var driver: ChromeDriver
 
     private val webLink: String = "https://rwminvest-dev.tecman.ru/login"
     private val adminLink: String = "https://rwminvest-dev.tecman.ru/adminLC/clients"
+//    companion object {
+//        @BeforeClass
+//        @JvmStatic
+//        fun first () {
+//            println("1")
+//        }
+//        @AfterClass
+//        @JvmStatic
+//        fun test () {
+//            println("2")
+//        }
+//    }
 
 
     @Before
@@ -83,4 +94,7 @@ class RunnerTest {
         driver.quit()
 
     }
+
 }
+
+

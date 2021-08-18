@@ -4,19 +4,22 @@ import Actions.DellUser
 import org.openqa.selenium.chrome.*
 import Auth.Auth
 import Auth.SmsCode
+
+
+
 import org.junit.Assert
 import org.openqa.selenium.By
 import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
 import java.io.File
-import java.util.concurrent.TimeUnit
+
+
 
 class NormalReg {
     fun run(url: String, adminUrl: String, driver: ChromeDriver) {
 
         DellUser().dell(driver, "test@test.test", false) // Проверка и удаление пользователя
-
 
         // 1ый шаг регистрации
         println("1ый шаг регистрации")
