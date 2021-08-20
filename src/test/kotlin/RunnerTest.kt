@@ -46,7 +46,7 @@ class RunnerTest {
 
     }
 
-//        @Test
+        @Test
 // Тест авторизации
     fun auth() {
         Auth().standard(
