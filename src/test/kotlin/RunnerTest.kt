@@ -96,10 +96,9 @@ class RunnerTest {
     }
 
 
-//    @Test
+    @Test
     fun editUserCard() {
         NormalReg().run(webLink, adminLink, driver, false, false)
-//        Auth().standard(driver, "https://rwminvest-dev.tecman.ru/", "test@test.test", "QWerty123!", "79999999999")
         Thread.sleep(2000)
         driver.get("https://rwminvest-dev.tecman.ru/")
         ClientStand().edit(driver)

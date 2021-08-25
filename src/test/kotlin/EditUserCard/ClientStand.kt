@@ -259,14 +259,19 @@ class ClientStand {
             Assert.fail("Код подразделение не изменился")
         }
 
-        println("Проверям файл со сканом паспорта")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[5]/div[5]/div[1]/div[1]/div[1]/div[2]"))
-        if (exm.getAttribute("outerText").equals("pasport2.pdf")) {
-            println("Название скана верное")
-        } else {
-            Assert.fail("Название скана паспорта не верное")
-        }
+//        println("Проверям файл со сканом паспорта")
+//        driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[5]/div[5]/div[1]/div[1]/div[1]/div[2]"))
+//        try {
+//            exm = driver.findElement(By.xpath("//div[contains(text(),'pasport2.pdf')]"))
+//            println("Название скана верное")
+//
+//
+//        } catch (e: NoSuchElementException) {
+//            Assert.fail("Название скана паспорта не верное")
+//        }
+
+
+
 
         println("Проверям кем выдан паспорт")
         exm =
