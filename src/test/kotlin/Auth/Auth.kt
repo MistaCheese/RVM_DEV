@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
 
 class Auth {
-    fun standard(driver: ChromeDriver, url: String, login: String, pass: String) {
+    fun standard(driver: ChromeDriver, url: String, login: String, pass: String, phoneNumber: String) {
         driver.get(url)
         var exm: WebElement =
             driver.findElement(By.xpath("//div[@class='rwm-text-field login']/div[1]/div[1]/input[1]"))
@@ -21,9 +21,7 @@ class Auth {
 
         exm = driver.findElement(By.xpath("//div[@class='sms-login__body-code']/div[1]/div[1]/div[1]/input[1]"))
         exm.click()
-        exm.sendKeys(SmsCode().get("78999999999"))
-
-
+        exm.sendKeys(SmsCode().get(phoneNumber))
     }
 
     fun adminAuth(driver: ChromeDriver, adminUrl: String) {  // Авторизацию в админку

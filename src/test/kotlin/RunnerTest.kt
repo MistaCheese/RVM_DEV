@@ -2,10 +2,12 @@ import Actions.UserProfile
 import Auth.Auth
 import CVD.CVD
 import CVD.check.Driver
+import EditUserCard.ClientStand
 import Registration.NormalReg
 import org.junit.*
 import org.junit.runners.MethodSorters
 import org.openqa.selenium.By
+import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
 import java.util.concurrent.TimeUnit
@@ -31,8 +33,6 @@ class RunnerTest {
 
 
     @Before
-
-
     fun singUp() {
         CVD("C:\\webDriver\\chrome\\", "C:\\Program Files (x86)\\Google\\Chrome\\Application").check()
         System.setProperty(
@@ -42,18 +42,18 @@ class RunnerTest {
         )
         driver = ChromeDriver()
         driver.manage()?.timeouts()?.implicitlyWait(10, TimeUnit.SECONDS)
-        driver.manage()?.window()?.maximize()
-
+        driver.manage().window().size = Dimension(1920, 1080)
     }
 
-        @Test
+    @Test
 // Тест авторизации
     fun auth() {
         Auth().standard(
             driver,
             webLink,
             "autotest@dontuse.com",
-            "qwerty123"
+            "qwerty123",
+            "78999999999"
         ) // Когда логин почта
         var exm: WebElement =
             driver.findElement(By.xpath("//div[@class='left-side-bar__user-information-body-content__info']/span[@class='left-side-bar__user-information-body-content__info-name']"))
@@ -69,7 +69,8 @@ class RunnerTest {
             driver,
             webLink,
             "+78999999999",
-            "qwerty123"
+            "qwerty123",
+            "78999999999"
         ) // Когда логин номер телефона
         exm =
             driver.findElement(By.xpath("//div[@class='left-side-bar__user-information-body-content__info']/span[@class='left-side-bar__user-information-body-content__info-name']"))
@@ -84,7 +85,25 @@ class RunnerTest {
 
     @Test
     fun reg() {
-        NormalReg().run(webLink, adminLink, driver)
+        NormalReg().run(webLink, adminLink, driver, false, true)
+
+    }
+
+    @Test
+    fun regEsia() {
+        NormalReg().run(webLink, adminLink, driver, true, true)
+
+    }
+
+
+//    @Test
+    fun editUserCard() {
+        NormalReg().run(webLink, adminLink, driver, false, false)
+//        Auth().standard(driver, "https://rwminvest-dev.tecman.ru/", "test@test.test", "QWerty123!", "79999999999")
+        Thread.sleep(2000)
+        driver.get("https://rwminvest-dev.tecman.ru/")
+        ClientStand().edit(driver)
+
 
     }
 
@@ -106,6 +125,7 @@ class RunnerTest {
 
     @After
     fun shutDown() {
+//        Thread.sleep(10000)
         driver.quit()
 
     }

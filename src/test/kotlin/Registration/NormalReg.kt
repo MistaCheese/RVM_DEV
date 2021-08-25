@@ -15,7 +15,7 @@ import java.io.File
 
 
 class NormalReg {
-    fun run(url: String, adminUrl: String, driver: ChromeDriver) {
+    fun run(url: String, adminUrl: String, driver: ChromeDriver, esia: Boolean, dellUserAfterTest: Boolean) {
 
         DellUser().dell(driver, "test@test.test", false) // Проверка и удаление пользователя
 
@@ -27,28 +27,50 @@ class NormalReg {
         var exm: WebElement = driver.findElement(By.xpath("//span[contains(text(),'Зарегистрироваться')]"))
         exm.click()
 
-        println("Выбираем пункт По паспортным данным")
-        exm =
-            driver.findElement(By.xpath("//div[@class='reg-form-container']/div[2]/button[@type='button']")) // По паспортным данным
-        exm.click()
 
-        println("Вводим фамилию")
-        exm =
-            driver.findElement(By.xpath("//div[@class='form-container__form__fio']/div[1]/div[1]/div[1]/div[1]/input[1]")) // Фамилия
-        exm.click()
-        exm.sendKeys("Тестовый")
+        if (esia) {
+            println("Выбираем пункт Через ЕСИА")
+            exm = driver.findElement(By.xpath("//div[@class='login-by-gov-service']/button[1]"))
+            exm.click()
+            Thread.sleep(2000)
+            println("Перешли на страницу авторизации ЕСИА")
+            println("Вводим логин уч записи ЕСИА")
+            exm = driver.findElement(By.xpath("//input[@name='login']"))
+            exm.sendKeys("esiatest006@yandex.ru")
 
-        println("Вводим Имя")
-        exm =
-            driver.findElement(By.xpath("//div[@class='form-container__form__fio']/div[2]/div[1]/div[1]/div[1]/input[1]")) // Имя
-        exm.click()
-        exm.sendKeys("Тест")
+            println("Вводим пароль")
+            exm = driver.findElement(By.xpath("//input[@id='password']"))
+            exm.sendKeys("11111111")
 
-        println("Вводим отчество")
-        exm =
-            driver.findElement(By.xpath("//div[@class='form-container__form__fio']/div[3]/div[1]/div[1]/div[1]/input[1]")) // Отчество
-        exm.click()
-        exm.sendKeys("Тестович")
+            println("Жмем войти")
+            exm = driver.findElement(By.xpath("//button[@id='loginByPwdButton']"))
+            exm.click()
+
+        } else {
+            println("Выбираем пункт По паспортным данным")
+            exm =
+                driver.findElement(By.xpath("//div[@class='reg-form-container']/div[2]/button[@type='button']")) // По паспортным данным
+            exm.click()
+
+            println("Вводим фамилию")
+            exm =
+                driver.findElement(By.xpath("//div[@class='form-container__form__fio']/div[1]/div[1]/div[1]/div[1]/input[1]")) // Фамилия
+            exm.click()
+            exm.sendKeys("Тестовый")
+
+            println("Вводим Имя")
+            exm =
+                driver.findElement(By.xpath("//div[@class='form-container__form__fio']/div[2]/div[1]/div[1]/div[1]/input[1]")) // Имя
+            exm.click()
+            exm.sendKeys("Тест")
+
+            println("Вводим отчество")
+            exm =
+                driver.findElement(By.xpath("//div[@class='form-container__form__fio']/div[3]/div[1]/div[1]/div[1]/input[1]")) // Отчество
+            exm.click()
+            exm.sendKeys("Тестович")
+        }
+
 
         println("Вводим номер телефона")
         exm =
@@ -202,31 +224,63 @@ class NormalReg {
             Assert.fail("Телефон указан не верно")
         }
 
-        println("Проверка фамилии")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"))
-        if (exm.getAttribute("value").equals("Тестовый")) {
-            println("Фамилия указано верно")
-        } else {
-            Assert.fail("Фамилия указано не верно")
-        }
 
-        println("Проверка имени")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]"))
-        if (exm.getAttribute("value").equals("Тест")) {
-            println("Имя указано верно")
-        } else {
-            Assert.fail("Имя указано не верно")
-        }
+        if (esia) {
+            println("Проверка фамилии")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("ФАМИЛИЯ006")) {
+                println("Фамилия указано верно")
+            } else {
+                Assert.fail("Фамилия указано не верно")
+            }
 
-        println("Проверка отчества")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/input[1]"))
-        if (exm.getAttribute("value").equals("Тестович")) {
-            println("Отчество указано верно")
+            println("Проверка имени")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("ИМЯ006")) {
+                println("Имя указано верно")
+            } else {
+                Assert.fail("Имя указано не верно")
+            }
+
+            println("Проверка отчества")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("ОТЧЕСТВО006")) {
+                println("Отчество указано верно")
+            } else {
+                Assert.fail("Отчество указано не верно")
+            }
         } else {
-            Assert.fail("Отчество указано не верно")
+
+
+            println("Проверка фамилии")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("Тестовый")) {
+                println("Фамилия указано верно")
+            } else {
+                Assert.fail("Фамилия указано не верно")
+            }
+
+            println("Проверка имени")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("Тест")) {
+                println("Имя указано верно")
+            } else {
+                Assert.fail("Имя указано не верно")
+            }
+
+            println("Проверка отчества")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("Тестович")) {
+                println("Отчество указано верно")
+            } else {
+                Assert.fail("Отчество указано не верно")
+            }
         }
 
         println("Проверка даты рождения")
@@ -302,9 +356,11 @@ class NormalReg {
         exm.sendKeys("102507") // Код подразделения
 
         println("Указываем кем выдан паспорт")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]/div[11]/div[1]/div[1]/div[1]/input[1]"))
-        exm.sendKeys("УФМС ПО г. МОСКВЕ") // Кем выдан паспорт
+        if (!esia) {
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]/div[11]/div[1]/div[1]/div[1]/input[1]"))
+            exm.sendKeys("УФМС ПО г. МОСКВЕ") // Кем выдан паспорт
+        }
 
         println("Указываем дату выдачи")
         exm =
@@ -330,7 +386,7 @@ class NormalReg {
             driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]/div[15]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]"))
         Thread.sleep(2000)
         exm.sendKeys(SmsCode().get("79999999999")) // Код из смс
-        Thread.sleep(5000)
+        Thread.sleep(7000)
 
 
         //  В админку, проверять статус, должен быть Активный 2
@@ -371,11 +427,20 @@ class NormalReg {
         exm =
             driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"))
 
-        if (exm.getAttribute("value").equals("1111 111111")) {
-            println("Серия и номер паспорта указаны верно")
+        if (esia) {
+            if (exm.getAttribute("value").equals("1111 222222")) {
+                println("Серия и номер паспорта указаны верно")
+            } else {
+                Assert.fail("Серия и номер паспорта указаны не верно :" + exm.getAttribute("value"))
+            }
         } else {
-            Assert.fail("Серия и номер паспорта указаны не верно")
+            if (exm.getAttribute("value").equals("1111 111111")) {
+                println("Серия и номер паспорта указаны верно")
+            } else {
+                Assert.fail("Серия и номер паспорта указаны не верно :" + exm.getAttribute("value"))
+            }
         }
+
 
         println("Проверка наличия скана паспорта")
         try {
@@ -387,24 +452,46 @@ class NormalReg {
         }
 
         println("Проверка кода подразделения")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[7]/div[1]/div[1]/div[1]/div[1]/input[1]"))
-        if (exm.getAttribute("value").equals("102-507")) {
-            println("КОд подразделения указан верно")
+
+        if (esia) {
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[7]/div[1]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("131-124")) {
+                println("КОд подразделения указан верно")
+            } else {
+                Assert.fail("Код подразделения указан не верно")
+            }
+
+            println("Проверка кем выдан паспорт")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[8]/div[1]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("Отделом УФМС России по Московской области в Люблинском районе тестовый 2019")) {
+                println("Кем выдан паспорт указан верно")
+            } else {
+                Assert.fail("Кем выдан паспорт указан не верно")
+            }
         } else {
-            Assert.fail("Код подразделения указан не верно")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[7]/div[1]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("102-507")) {
+                println("КОд подразделения указан верно")
+            } else {
+                Assert.fail("Код подразделения указан не верно")
+            }
+
+            println("Проверка кем выдан паспорт")
+            exm =
+                driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[8]/div[1]/div[1]/div[1]/div[1]/input[1]"))
+            if (exm.getAttribute("value").equals("УФМС ПО г. МОСКВЕ")) {
+                println("Кем выдан паспорт указан верно")
+            } else {
+                Assert.fail("Кем выдан паспорт указан не верно")
+            }
         }
 
-        println("Проверка кем выдан паспорт")
-        exm =
-            driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[8]/div[1]/div[1]/div[1]/div[1]/input[1]"))
-        if (exm.getAttribute("value").equals("УФМС ПО г. МОСКВЕ")) {
-            println("Кем выдан паспорт указан верно")
-        } else {
-            Assert.fail("Кем выдан паспорт указан не верно")
-        }
 
-        println("роверка СНИЛС")
+
+        println("Проверка СНИЛС")
         exm =
             driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[11]/div[1]/div[1]/div[1]/div[1]/input[1]"))
         if (exm.getAttribute("value").equals("000-000-000 00")) {
@@ -465,8 +552,11 @@ class NormalReg {
 
 
 
-        println("Удаляем тестового пользователя")
-        DellUser().dell(driver, "test@test.test", true) // Проверка и удаление пользователя
+        if(dellUserAfterTest) {
+            println("Удаляем тестового пользователя")
+            DellUser().dell(driver, "test@test.test", true) // Проверка и удаление пользователя
+        }
+
 
 
         println("Тест окончен!")
