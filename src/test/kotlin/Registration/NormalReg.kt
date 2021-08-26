@@ -397,7 +397,7 @@ class NormalReg {
         println("Вводим в поиск почту")
         exm = driver.findElement(By.xpath("//input[@name='vgt-email']"))
         exm.sendKeys("test@test.test")
-        Thread.sleep(1000)
+        Thread.sleep(2000)
 
         try {
             exm = driver.findElement(By.xpath("//span[contains(text(),'test@test.test')]"))

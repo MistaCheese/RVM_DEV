@@ -2,6 +2,7 @@ import Actions.UserProfile
 import Auth.Auth
 import CVD.CVD
 import CVD.check.Driver
+import EditUserCard.BankAccount
 import EditUserCard.ClientStand
 import Registration.NormalReg
 import org.junit.*
@@ -105,21 +106,15 @@ class RunnerTest {
 
 
     }
+    @Test
+    fun bankAccount  () {
+        NormalReg().run(webLink, adminLink, driver, false, false)
+        Thread.sleep(2000)
+        driver.get("https://rwminvest-dev.tecman.ru/")
+        BankAccount().add(driver)
+    }
 
-//    @Test
-//    fun getData () {
-//        Auth().adminAuth(driver,adminLink)
-//        Thread.sleep(2000)
-//        driver.get("https://rwminvest-dev.tecman.ru/adminLC/clients")
-//        var exm : WebElement = driver.findElement(By.xpath("//input[@name='vgt-email']"))
-//        exm.sendKeys("tylimovalex@gmail.com")
-//        exm = driver.findElement(By.xpath("//tbody/tr[1]/td[7]/span[1]/div[1]/*[1]"))
-//        exm.click()
-//        Thread.sleep(2000)
-//        exm = driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"))
-//        println(exm.getAttribute("value"))
-//
-//    }
+
 
 
     @After
