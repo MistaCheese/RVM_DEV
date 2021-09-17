@@ -172,6 +172,14 @@ class NormalReg {
         exm.sendKeys(SmsCode().get("79999999999"))
         Thread.sleep(5000)
 
+        exm = driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]/p[2]"))
+        if (!exm.text.contains("Добро пожаловать в личный кабинет.")) {
+            Assert.fail("Ошибка регипстрации на шаге 1")
+        }
+
+
+
+
         // Проверяем в админке, что пользователь появился в списке и имеет статус 1.
 
         println("Заходим в админку")
