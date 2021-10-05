@@ -90,7 +90,7 @@ class RunnerTest {
 
     }
 
- //   @Test
+    @Test
     fun regEsia() {
         NormalReg().run(webLink, adminLink, driver, true, true)
 
