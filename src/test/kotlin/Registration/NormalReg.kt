@@ -237,7 +237,7 @@ class NormalReg {
             println("Проверка фамилии")
             exm =
                 driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"))
-            if (exm.getAttribute("value").equals("Фамилия006")) {
+            if (exm.getAttribute("value").equals("ФАМИЛИЯ006")) {
                 println("Фамилия указано верно")
             } else {
                 Assert.fail("Фамилия указано не верно")
@@ -246,7 +246,7 @@ class NormalReg {
             println("Проверка имени")
             exm =
                 driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]"))
-            if (exm.getAttribute("value").equals("Имя006")) {
+            if (exm.getAttribute("value").equals("ИМЯ006")) {
                 println("Имя указано верно")
             } else {
                 Assert.fail("Имя указано не верно")
@@ -255,7 +255,7 @@ class NormalReg {
             println("Проверка отчества")
             exm =
                 driver.findElement(By.xpath("//body/div[@id='app']/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/input[1]"))
-            if (exm.getAttribute("value").equals("Отчество006")) {
+            if (exm.getAttribute("value").equals("ОТЧЕСТВО006")) {
                 println("Отчество указано верно")
             } else {
                 Assert.fail("Отчество указано не верно")

@@ -1,6 +1,7 @@
 package Actions
 
 import Auth.Auth
+import SQL.DB
 import org.junit.Assert
 import org.openqa.selenium.By
 import org.openqa.selenium.NoSuchElementException
@@ -24,11 +25,14 @@ class DellUser {
         Thread.sleep(1000)
 
         if (flag) {
+            DB().delDocFromUser(DB().getID("*","\"user\"", "email=\'$userMail\'")) // Удаление всех доков через базу
+
             println("Удаляем пользователя")
             println("Блокируем пользоватешя")
             exm = driver.findElement(By.xpath("//tbody/tr[1]/td[7]/span[1]/div[1]/*[3]"))
             exm.click()
             Thread.sleep(1000)
+
 
             println("Удаляем пользователя")
             exm = driver.findElement(By.xpath("//tbody/tr[1]/td[7]/span[1]/div[1]/*[4]"))
@@ -52,7 +56,7 @@ class DellUser {
                 driver.manage()?.timeouts()?.implicitlyWait(3, TimeUnit.SECONDS)
                 exm = driver.findElement(By.xpath("//span[contains(text(),'$userMail')]"))
                 println("Обнаружен пользователь ${exm.text}")
-
+                DB().delDocFromUser(DB().getID("*","\"user\"", "email=\'$userMail\'")) // Удаление всех доков через базу
                 println("Блокируем пользоватешя")
                 exm = driver.findElement(By.xpath("//tbody/tr[1]/td[7]/span[1]/div[1]/*[3]"))
                 exm.click()

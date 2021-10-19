@@ -5,6 +5,7 @@ import CVD.check.Driver
 import EditUserCard.BankAccount
 import EditUserCard.ClientStand
 import Registration.NormalReg
+import SQL.DB
 import org.junit.*
 import org.junit.runners.MethodSorters
 import org.openqa.selenium.By
@@ -113,9 +114,6 @@ class RunnerTest {
         driver.get("https://rwminvest-dev.tecman.ru/")
         BankAccount().add(driver)
     }
-
-
-
 
     @After
     fun shutDown() {
